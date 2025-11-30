@@ -13,7 +13,7 @@ A Docker Hub image: `josehun/hello-devops-python:latest`
 
 ---
 
-## 1. 2.1 – Alkalmazás (HTTP-szolgáltatás)
+## 2.1 – Alkalmazás (HTTP-szolgáltatás)
 
 Az alkalmazás egy egyszerű HTTP végpontot (`/`) valósít meg, amely szöveges választ ad.
 
@@ -59,7 +59,7 @@ Az alábbi lépések a README alapján reprodukálhatók.
 
 Python 3.10+ telepítve
 
-2.2.2 Virtuális környezet és függőségek
+2.2 Virtuális környezet és függőségek
 ```
 python -m venv .venv
 
@@ -76,7 +76,7 @@ pip install -r requirements.txt
 requirements.txt
 flask==3.0.3
 
-2.2.3 Alkalmazás indítása
+2.3 Alkalmazás indítása
 ```
 python app/main.py
 ```
@@ -120,11 +120,67 @@ Ezzel teljesül a feladat követelménye:
 - és a branch visszakerül a trunkre (merge).
 A repository GitHubon is elérhető, a commitok, branchek és a merge története látható.
 
+## 2.4 – Dockerizálás
+A projekt gyökerében található Dockerfile segítségével az alkalmazás konténerben is futtatható.
+```
+FROM python:3.12-slim
 
+WORKDIR /app
 
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
+COPY app ./app
 
+ENV PORT=8080
+EXPOSE 8080
+
+CMD ["python", "app/main.py"]
+```
+2.4.1 Docker image buildelése lokálisan
+Ha a gépen elérhető a Docker (pl. Docker Desktop vagy Docker Engine):
+```
+docker build -t hello-devops-python:v1 .
+docker run -p 8080:8080 hello-devops-python:v1
+```
+
+## 3.2 – CI pipeline + free registry (GitHub Actions + Docker Hub)
+
+A négy opcionális DevOps feladatrész közül a 3.2-es opciót valósítottam meg:
+
+CI pipeline, amely buildeli az alkalmazást, Docker image-et készít, és egy ingyenes registry-be (Docker Hub) pusholja.
+
+3.2.1 CI workflow – .github/workflows/ci.yml
+
+A GitHub Actions workflow:
+
+trigger: minden main branchre történő push és pull_request,
+
+lépések:
+
+I. kód checkout (actions/checkout),
+II. Python 3.12 környezet beállítása,
+III. függőségek telepítése (pip install -r requirements.txt),
+IV. opcionális kódfordítás (python -m compileall app),
+V. Docker Hub login GitHub Secrets segítségével,
+VI. Docker image build + push a Docker Hubra.
+```
+- name: Log in to Docker Hub
+  uses: docker/login-action@v3
+  with:
+    username: ${{ secrets.DOCKERHUB_USERNAME }}
+    password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+- name: Build and push Docker image
+  uses: docker/build-push-action@v5
+  with:
+    context: .
+    push: true
+    tags: josehun/hello-devops-python:latest
+```
 
 
 
