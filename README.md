@@ -189,15 +189,15 @@ docker run -p 8080:8080 josehun/hello-devops-python:latest
 
 A CI által előállított image-et egy külön Ubuntu gépen (VM-en) is kipróbáltam:
 
-# Image lehúzása Docker Hubról
+Image lehúzása Docker Hubról
 ```
 sudo docker pull josehun/hello-devops-python:latest
 ```
-# Konténer indítása
+Konténer indítása
 ```
 sudo docker run -d -p 8080:8080 --name hello-devops josehun/hello-devops-python:latest
 ```
-# Teszt
+Teszt
 ```
 curl http://localhost:8080
 # -> "Hello DevOps from Python!"
