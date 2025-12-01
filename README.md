@@ -2,7 +2,7 @@
 
 Ez a projekt egy egyszerű, Flask-alapú „Hello DevOps” webalkalmazás, amelyen keresztül a DevOps házi feladathoz kapcsolódó követelményeket valósítottam meg:
 
-- **2.1 – Alkalmazás (HTTP-szolgáltatás)**
+- **1 – Alkalmazás (HTTP-szolgáltatás)**
 - **2.2 – Buildelés (futtatható alkalmazás létrehozása)**
 - **2.3 – Git használata, trunk-based development**
 - **2.4 – Dockerizálás**
@@ -13,7 +13,7 @@ A Docker Hub image: `josehun/hello-devops-python:latest`
 
 ---
 
-## 2.1 – Alkalmazás (HTTP-szolgáltatás)
+## 1 – Alkalmazás (HTTP-szolgáltatás)
 
 Az alkalmazás egy egyszerű HTTP végpontot (`/`) valósít meg, amely szöveges választ ad.
 
@@ -51,11 +51,11 @@ hello-devops-python/
   README.md
 ```
 
-## 2. 2 – Buildelés és lokális futtatás
+## 2 – Buildelés és lokális futtatás
 A cél az volt, hogy egy külső fejlesztő is pár parancsból el tudja indítani az alkalmazást.
 Az alábbi lépések a README alapján reprodukálhatók.
 
-2.2.1 Előfeltételek
+2.1 Előfeltételek
 
 Python 3.10+ telepítve
 
@@ -86,41 +86,32 @@ http://localhost:8080
  címen az alkalmazás válasza:
 „Hello DevOps from Python!”
 
-Ezzel a 2.2 pont szerinti „build + futtatás” dokumentáltan elkészül.
-
-## 3. 2 – Git használata, trunk-based development
+## 3 – Git használata, trunk-based development
 
 A repository trunk branch-e: main.
 A fejlesztés során trunk-based mintát alkalmaztam:
 
-1. Kezdeti commit a main ágon
+3.1. Kezdeti commit a main ágon
 ```
 git init
 git add .
 git commit -m "chore: initial hello-devops python project"
 git branch -M main
 ```
-2. Feature branch létrehozása és módosítás
+3.2. Feature branch létrehozása és módosítás
 ```
 git checkout -b feature/change-message
 # app/main.py-ben módosítás (pl. üzenet frissítése)
 git add app/main.py
 git commit -m "feat: update hello message to v2"
 ```
-3. Merge vissza a trunkre
+3.3. Merge vissza a trunkre
 ```
 git checkout main
 git merge feature/change-message
 ```
-Ezzel teljesül a feladat követelménye:
 
-- van egyértelmű trunk (main),
-- létezik feature branch,
-- azon önálló commitok vannak,
-- és a branch visszakerül a trunkre (merge).
-A repository GitHubon is elérhető, a commitok, branchek és a merge története látható.
-
-## 2.4 – Dockerizálás
+## 4 – Dockerizálás
 A projekt gyökerében található Dockerfile segítségével az alkalmazás konténerben is futtatható.
 ```
 FROM python:3.12-slim
@@ -140,7 +131,7 @@ EXPOSE 8080
 
 CMD ["python", "app/main.py"]
 ```
-2.4.1 Docker image buildelése lokálisan
+4.1 Docker image buildelése lokálisan
 Ha a gépen elérhető a Docker (pl. Docker Desktop vagy Docker Engine):
 ```
 docker build -t hello-devops-python:v1 .
