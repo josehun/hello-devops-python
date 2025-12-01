@@ -151,12 +151,12 @@ trigger: minden main branchre történő push és pull_request,
 
 lépések:
 
-I. kód checkout (actions/checkout),
-II. Python 3.12 környezet beállítása,
-III. függőségek telepítése (pip install -r requirements.txt),
-IV. opcionális kódfordítás (python -m compileall app),
-V. Docker Hub login GitHub Secrets segítségével,
-VI. Docker image build + push a Docker Hubra.
+- I. kód checkout (actions/checkout),
+- II. Python 3.12 környezet beállítása,
+- III. függőségek telepítése (pip install -r requirements.txt),
+- IV. opcionális kódfordítás (python -m compileall app),
+- V. Docker Hub login GitHub Secrets segítségével,
+- VI. Docker image build + push a Docker Hubra.
 ```
 - name: Log in to Docker Hub
   uses: docker/login-action@v3
@@ -175,9 +175,9 @@ VI. Docker image build + push a Docker Hubra.
 
 A CI pipeline a következő Docker Hub repo-ba pushol:
 
-Repository: josehun/hello-devops-python
-Tag: latest
-URL: https://hub.docker.com/r/josehun/hello-devops-python
+- Repository: josehun/hello-devops-python
+- Tag: latest
+- URL: https://hub.docker.com/r/josehun/hello-devops-python
 
 Sikeres futás után az image bármely gépről lehúzható és futtatható:
 ```
@@ -208,11 +208,11 @@ curl http://localhost:8080
 
 A projektben:
 
-1 – Elkészült egy egyszerű Python/Flask alapú HTTP-szolgáltatás.
-2 – Dokumentáltam a buildelés és a lokális futtatás lépéseit (venv, pip, futtatás).
-3 – Git + trunk-based fejlesztési modell valósult meg (main + feature branch + merge).
-4 – Az alkalmazás Docker konténerben is futtatható egy Dockerfile segítségével.
-5 – GitHub Actions CI pipeline buildeli és a Docker Hubra pusholja az image-et. + Ubuntu teszt
+- 1 – Elkészült egy egyszerű Python/Flask alapú HTTP-szolgáltatás.
+- 2 – Dokumentáltam a buildelés és a lokális futtatás lépéseit (venv, pip, futtatás).
+- 3 – Git + trunk-based fejlesztési modell valósult meg (main + feature branch + merge).
+- 4 – Az alkalmazás Docker konténerben is futtatható egy Dockerfile segítségével.
+- 5 – GitHub Actions CI pipeline buildeli és a Docker Hubra pusholja az image-et. + Ubuntu teszt
 
 
 
