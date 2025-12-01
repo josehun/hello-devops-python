@@ -3,10 +3,11 @@
 Ez a projekt egy egyszerű, Flask-alapú „Hello DevOps” webalkalmazás, amelyen keresztül a DevOps házi feladathoz kapcsolódó követelményeket valósítottam meg:
 
 - **1 – Alkalmazás (HTTP-szolgáltatás)**
-- **2.2 – Buildelés (futtatható alkalmazás létrehozása)**
-- **2.3 – Git használata, trunk-based development**
-- **2.4 – Dockerizálás**
-- **3.2 – CI pipeline + free registry (GitHub Actions + Docker Hub)**
+- **2 – Buildelés (futtatható alkalmazás létrehozása)**
+- **3 – Git használata, trunk-based development**
+- **4 – Dockerizálás**
+- **5 – CI pipeline + free registry (GitHub Actions + Docker Hub)**
+- **6 – Összefoglalás**
 
 A repository: <https://github.com/josehun/hello-devops-python>  
 A Docker Hub image: `josehun/hello-devops-python:latest`
