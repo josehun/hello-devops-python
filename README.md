@@ -138,13 +138,11 @@ docker build -t hello-devops-python:v1 .
 docker run -p 8080:8080 hello-devops-python:v1
 ```
 
-## 3.2 – CI pipeline + free registry (GitHub Actions + Docker Hub)
-
-A négy opcionális DevOps feladatrész közül a 3.2-es opciót valósítottam meg:
+## 5 – CI pipeline + free registry (GitHub Actions + Docker Hub)
 
 CI pipeline, amely buildeli az alkalmazást, Docker image-et készít, és egy ingyenes registry-be (Docker Hub) pusholja.
 
-3.2.1 CI workflow – .github/workflows/ci.yml
+5.1 CI workflow – .github/workflows/ci.yml
 
 A GitHub Actions workflow:
 
@@ -172,9 +170,48 @@ VI. Docker image build + push a Docker Hubra.
     push: true
     tags: josehun/hello-devops-python:latest
 ```
+5.2 Docker Hub repository
+
+A CI pipeline a következő Docker Hub repo-ba pushol:
+
+Repository: josehun/hello-devops-python
+Tag: latest
+URL: https://hub.docker.com/r/josehun/hello-devops-python
+
+Sikeres futás után az image bármely gépről lehúzható és futtatható:
+```
+docker pull josehun/hello-devops-python:latest
+docker run -p 8080:8080 josehun/hello-devops-python:latest
+```
+
+5.3 Image használata más gépen (pl. Ubuntu)
+
+A CI által előállított image-et egy külön Ubuntu gépen (VM-en) is kipróbáltam:
+
+# Image lehúzása Docker Hubról
+```
+sudo docker pull josehun/hello-devops-python:latest
+```
+# Konténer indítása
+```
+sudo docker run -d -p 8080:8080 --name hello-devops josehun/hello-devops-python:latest
+```
+# Teszt
+```
+curl http://localhost:8080
+# -> "Hello DevOps from Python!"
+```
 
 
+## 6 Összefoglalás
 
+A projektben:
+
+1 – Elkészült egy egyszerű Python/Flask alapú HTTP-szolgáltatás.
+2 – Dokumentáltam a buildelés és a lokális futtatás lépéseit (venv, pip, futtatás).
+3 – Git + trunk-based fejlesztési modell valósult meg (main + feature branch + merge).
+4 – Az alkalmazás Docker konténerben is futtatható egy Dockerfile segítségével.
+5 – GitHub Actions CI pipeline buildeli és a Docker Hubra pusholja az image-et. + Ubuntu teszt
 
 
 
