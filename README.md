@@ -30,7 +30,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello DevOps from Python!"
+    return "Hello DevOps v3 from Python!"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
@@ -85,7 +85,7 @@ Eredmény:
 
 http://localhost:8080
  címen az alkalmazás válasza:
-„Hello DevOps from Python!”
+„Hello DevOps v3 from Python!”
 
 ## 3 – Git használata, trunk-based development
 
@@ -200,7 +200,7 @@ sudo docker run -d -p 8080:8080 --name hello-devops josehun/hello-devops-python:
 Teszt
 ```
 curl http://localhost:8080
-# -> "Hello DevOps from Python!"
+# -> "Hello DevOps v3 from Python!"
 ```
 
 
